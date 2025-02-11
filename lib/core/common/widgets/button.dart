@@ -10,6 +10,8 @@ class Button extends StatelessWidget {
   final Color? disabledForgroundColor;
   final bool disabled;
   final bool fullWidth;
+  final TextStyle? textStyle;
+  final double elevation;
 
   const Button({
     super.key,
@@ -21,6 +23,8 @@ class Button extends StatelessWidget {
     this.disabledForgroundColor,
     this.disabled = false,
     this.fullWidth = false,
+    this.textStyle,
+    this.elevation = 0,
   });
 
   @override
@@ -29,6 +33,8 @@ class Button extends StatelessWidget {
       width: fullWidth ? double.infinity : null,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          elevation: elevation,
+          textStyle: textStyle,
           backgroundColor: backgroundColor,
           foregroundColor: frogroundColor,
           disabledBackgroundColor: disabledBackgroundColor,

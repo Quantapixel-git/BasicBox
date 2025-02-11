@@ -6,6 +6,7 @@ import 'package:ecom2/features/auth/screens/verification_screen.dart';
 import 'package:ecom2/features/events/screens/events_screen.dart';
 import 'package:ecom2/features/news/screens/news_screen.dart';
 import 'package:ecom2/features/onboarding/screens/onboard_screen.dart';
+import 'package:ecom2/features/products/screens/product_details_screen.dart';
 import 'package:ecom2/features/products/screens/product_screen.dart';
 import 'package:ecom2/features/search/search_screen.dart';
 import 'package:ecom2/screens/bottom_nav_layout.dart';
@@ -20,9 +21,14 @@ class CustomRoutes {
         builder: (context, state) => const BottomNavLayout(),
         routes: [
           GoRoute(
-            path: RouteName.product,
-            builder: (context, state) => const ProductScreen(),
-          ),
+              path: RouteName.product,
+              builder: (context, state) => const ProductScreen(),
+              routes: [
+                GoRoute(
+                  path: RouteName.productDetails,
+                  builder: (context, state) => const ProductDetailsScreen(),
+                ),
+              ]),
           GoRoute(
             path: RouteName.search,
             builder: (context, state) => const SearchScreen(),

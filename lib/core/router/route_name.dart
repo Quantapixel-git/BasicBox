@@ -10,6 +10,7 @@ class RouteName {
   static final String regoster = "/auth/regoster";
   static final String resetPassword = "/auth/resetPassword";
   static final String product = "products";
+  static final String productDetails = "details";
 }
 
 class NavigateTo {
@@ -25,4 +26,6 @@ class NavigateTo {
   static final String newsToEvents = "/${RouteName.news}/${RouteName.events}";
   static final String events = "/${RouteName.events}";
   static final String products = "/${RouteName.product}";
+  static final String productDetails =
+      "/${RouteName.product}/${RouteName.productDetails}";
 }
