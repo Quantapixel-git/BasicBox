@@ -9,6 +9,8 @@ class Input extends StatelessWidget {
   final TextInputType type;
   final bool secureEntry;
   final Widget? suffixIcon;
+  final int minLines;
+  final int maxLines;
 
   const Input({
     super.key,
@@ -19,6 +21,8 @@ class Input extends StatelessWidget {
     this.secureEntry = false,
     this.suffixIcon,
     this.showLabel = true,
+    this.maxLines = 1,
+    this.minLines = 1,
   });
 
   @override
@@ -39,6 +43,8 @@ class Input extends StatelessWidget {
             height: 20.0,
           ),
         TextField(
+          minLines: minLines,
+          maxLines: maxLines,
           keyboardType: type,
           obscureText: secureEntry,
           style: TextStyle(

@@ -1,13 +1,18 @@
 import 'package:ecom2/core/common/widgets/border_button.dart';
 import 'package:ecom2/core/common/widgets/news_card.dart';
 import 'package:ecom2/core/router/route_name.dart';
+import 'package:ecom2/features/events/screens/events_screen.dart';
 import 'package:ecom2/features/home/widgets/trending_product_card.dart';
+import 'package:ecom2/features/products/screens/product_screen.dart';
+import 'package:ecom2/features/search/search_screen.dart';
 import 'package:ecom2/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
+  static final route = "home";
+
   const HomeScreen({super.key});
 
   @override
@@ -77,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: SearchBar(
                     onTap: () {
-                      context.go(NavigateTo.search);
+                      context.pushNamed(SearchScreen.route);
                     },
                     side: WidgetStatePropertyAll(
                       BorderSide(
@@ -206,8 +211,7 @@ class HomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          print("Tap is working ....");
-                          context.go(NavigateTo.products);
+                          context.pushNamed(ProductScreen.route);
                         },
                         child: Column(
                           children: [
@@ -414,7 +418,7 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return NewsCard(
                           onTap: () {
-                            context.go(NavigateTo.events);
+                            context.pushNamed(EventsScreen.route);
                           },
                         );
                       },
@@ -425,7 +429,7 @@ class HomeScreen extends StatelessWidget {
                     BorderButton(
                       fullWidth: true,
                       onTap: () {
-                        context.go(NavigateTo.news);
+                        context.pushNamed(EventsScreen.route);
                       },
                       text: "See more News",
                     ),

@@ -1,8 +1,56 @@
+import 'package:ecom2/core/common/widgets/button.dart';
+import 'package:ecom2/core/common/widgets/common_bottom_sheet.dart';
 import 'package:ecom2/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key});
+
+  Future<void> _showSortingBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return CommonBottomSheet(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              title: "Product Action",
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(
+                    "Add to Wishlist",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ),
+                Divider(
+                  color: AppColors.border,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(
+                    "Share Product",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ),
+                Button(
+                  onTap: () {},
+                  title: "Add to Cart",
+                  frogroundColor: AppColors.black,
+                  backgroundColor: AppColors.primary,
+                  fullWidth: true,
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +130,14 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(
-                Icons.more_vert,
-                size: 14,
+              InkWell(
+                onTap: () {
+                  _showSortingBottomSheet(context);
+                },
+                child: Icon(
+                  Icons.more_vert,
+                  size: 14,
+                ),
               )
             ],
           )

@@ -1,7 +1,6 @@
-import 'package:ecom2/core/router/route_name.dart';
 import 'package:ecom2/features/auth/providers/auth_provider.dart';
 import 'package:ecom2/core/common/widgets/button.dart';
-import 'package:ecom2/core/common/widgets/input.dart';
+import 'package:ecom2/features/auth/screens/update_profile_page.dart';
 import 'package:ecom2/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +8,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 
 class VerificationScreen extends StatelessWidget {
+  static final route = "verification";
   const VerificationScreen({super.key});
 
   @override
@@ -112,7 +112,7 @@ class VerificationScreen extends StatelessWidget {
               Button(
                 disabledBackgroundColor: AppColors.grey1,
                 onTap: () {
-                  context.go(NavigateTo.updateProfile);
+                  context.pushNamed(UpdateProfilePage.route);
                 },
                 title: "Continue",
                 fullWidth: true,

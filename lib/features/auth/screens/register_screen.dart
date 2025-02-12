@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatelessWidget {
+  static final route = "reigster";
   const RegisterScreen({super.key});
 
   @override

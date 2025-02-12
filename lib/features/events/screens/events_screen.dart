@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class EventsScreen extends StatelessWidget {
+  static final route = "events";
   const EventsScreen({super.key});
 
   @override

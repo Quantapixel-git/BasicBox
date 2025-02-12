@@ -45,12 +45,12 @@ class AppTheme {
         fontWeight: FontWeight.w500,
       ),
       labelMedium: TextStyle(
-        color: AppColors.black,
+        color: AppColors.grey1,
         fontSize: 14,
         fontWeight: FontWeight.w400,
       ),
       labelSmall: TextStyle(
-        color: AppColors.black,
+        color: AppColors.grey1,
         fontSize: 12,
         fontWeight: FontWeight.w500,
       ),
@@ -204,6 +204,22 @@ class AppTheme {
           fontWeight: FontWeight.w600,
         ),
       ),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primary,
+      foregroundColor: blackColor,
+    ),
+    tabBarTheme: TabBarThemeData(
+      labelStyle: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+      labelColor: AppColors.black,
+      unselectedLabelColor: AppColors.black,
+      indicatorColor: AppColors.secondary,
+    ),
+    radioTheme: RadioThemeData(
+      fillColor: WidgetStatePropertyAll(AppColors.green),
     ),
   );
 }

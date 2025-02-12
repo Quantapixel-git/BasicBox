@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchScreen extends StatelessWidget {
+  static final String route = "search";
   const SearchScreen({super.key});
 
   @override

@@ -1,4 +1,5 @@
 import 'package:ecom2/core/router/route_name.dart';
+import 'package:ecom2/features/auth/screens/login_screen.dart';
 import 'package:ecom2/features/onboarding/providers/onboarding_provider.dart';
 import 'package:ecom2/features/onboarding/widgets/onboard_item.dart';
 import 'package:ecom2/features/onboarding/widgets/onboarding_text_button.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class OnboardScreen extends StatelessWidget {
+  static final route = 'onboard';
   const OnboardScreen({super.key});
 
   @override
@@ -44,7 +46,7 @@ class OnboardScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            context.go(NavigateTo.login);
+                            context.pushNamed(LoginScreen.route);
                           },
                           child: Text(
                             "Skip",
@@ -114,7 +116,7 @@ class OnboardScreen extends StatelessWidget {
                         OnboardingTextButton(
                           onTap: () {
                             if (provider.currentIndex == 2) {
-                              context.go(NavigateTo.login);
+                              context.pushNamed(LoginScreen.route);
                             }
                             provider.goNext();
                           },

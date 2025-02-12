@@ -1,4 +1,5 @@
 import 'package:ecom2/core/router/route_name.dart';
+import 'package:ecom2/features/products/screens/product_details_screen.dart';
 import 'package:ecom2/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ class TrendingProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go(NavigateTo.productDetails);
+        context.pushNamed(ProductDetailsScreen.route);
       },
       child: Stack(
         children: [

@@ -2,12 +2,14 @@ import 'package:ecom2/core/router/route_name.dart';
 import 'package:ecom2/features/auth/providers/auth_provider.dart';
 import 'package:ecom2/core/common/widgets/button.dart';
 import 'package:ecom2/core/common/widgets/input.dart';
+import 'package:ecom2/screens/bottom_nav_layout.dart';
 import 'package:ecom2/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class UpdateProfilePage extends StatelessWidget {
+  static final String route = "updateProfile";
   const UpdateProfilePage({super.key});
 
   @override
@@ -105,7 +107,7 @@ class UpdateProfilePage extends StatelessWidget {
               Button(
                 disabledBackgroundColor: AppColors.grey1,
                 onTap: () {
-                  context.go(NavigateTo.rootLayout);
+                  context.pushNamed("/");
                 },
                 title: "Continue",
                 fullWidth: true,

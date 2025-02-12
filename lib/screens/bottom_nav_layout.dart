@@ -1,7 +1,6 @@
 import 'package:ecom2/features/home/screens/home_screen.dart';
 import 'package:ecom2/screens/order_screen.dart';
 import 'package:ecom2/screens/print_screen.dart';
-import 'package:ecom2/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavLayout extends StatefulWidget {

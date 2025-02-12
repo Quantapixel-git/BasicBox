@@ -1,24 +1,287 @@
+import 'package:ecom2/core/common/widgets/border_button.dart';
 import 'package:ecom2/core/common/widgets/button.dart';
+import 'package:ecom2/core/common/widgets/common_bottom_sheet.dart';
+import 'package:ecom2/features/comments/screens/rating_and_comments.dart';
+import 'package:ecom2/features/merchant/screens/merchant_info_screen.dart';
+import 'package:ecom2/features/products/widgets/comment_card.dart';
+import 'package:ecom2/features/products/widgets/filter_bottom_sheet_content.dart';
 import 'package:ecom2/features/products/widgets/quantity_price_card.dart';
+import 'package:ecom2/features/products/widgets/recommended_product_card.dart';
+import 'package:ecom2/features/products/widgets/sorting_bottom_sheet_content.dart';
+import 'package:ecom2/features/products/widgets/varriation_card.dart';
 import 'package:ecom2/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 
-class ProductDetailsScreen extends StatelessWidget {
+class ProductDetailsScreen extends StatefulWidget {
+  static final route = 'productDetails';
   const ProductDetailsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final benifits = [
-      "Liquid extract of orange tree fruit",
-      "Varieties include blood orange, navel oranges, valencia orange, clementine, and tangerine",
-      "Can have varying amounts of juice vesicles (pulp or (juicy) bits)",
-      "Commercial orange juice may be pasteurized and have oxygen removed",
-      "Freshly squeezed orange juice is obtained by pressing fruit close to market and packaging without processing",
-      "Nutrition powerhouse with vitamins, minerals, and antioxidants",
-      "Often consumed as a beverage or used in recipes",
-    ];
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+}
 
+class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  int selectedQuantity = 0;
+  int selectedVariationId = 1;
+
+  final benifits = [
+    "Liquid extract of orange tree fruit",
+    "Varieties include blood orange, navel oranges, valencia orange, clementine, and tangerine",
+    "Can have varying amounts of juice vesicles (pulp or (juicy) bits)",
+    "Commercial orange juice may be pasteurized and have oxygen removed",
+    "Freshly squeezed orange juice is obtained by pressing fruit close to market and packaging without processing",
+    "Nutrition powerhouse with vitamins, minerals, and antioxidants",
+    "Often consumed as a beverage or used in recipes",
+  ];
+
+  void handleIncreaseQuantity() {
+    setState(() {
+      selectedQuantity = selectedQuantity + 1;
+    });
+  }
+
+  void handleDecreaseQuantity() {
+    if (selectedQuantity > 0) {
+      setState(() {
+        selectedQuantity = selectedQuantity - 1;
+      });
+    }
+  }
+
+  Future<void> _showCustomizeBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return DefaultTabController(
+              length: 4,
+              child: CommonBottomSheet(
+                hasHeight: true,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                title: "Customize ",
+                children: [
+                  TabBar(
+                    tabs: [
+                      Tab(
+                        text: "Filter",
+                      ),
+                      Tab(
+                        text: "Sorting",
+                      ),
+                      Tab(
+                        text: "Review",
+                      ),
+                      Tab(
+                        text: "Offers",
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        FilterBottomSheetContent(),
+                        SortingBottomSheetContent(),
+                        SortingBottomSheetContent(),
+                        SortingBottomSheetContent(),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: BorderButton(
+                          onTap: () {},
+                          text: "Reset",
+                          fullWidth: true,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Expanded(
+                        child: Button(
+                          onTap: () {},
+                          title: "Apply",
+                          frogroundColor: AppColors.black,
+                          backgroundColor: AppColors.primary,
+                          fullWidth: true,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _showSortingBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return CommonBottomSheet(
+              title: "Sorting",
+              children: [
+                SortingBottomSheetContent(),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _showAddToCartBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return CommonBottomSheet(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              title: "Add to Cart",
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Quantity",
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            if (selectedQuantity > 0) {
+                              setState(() => selectedQuantity--);
+                            }
+                          },
+                          child: Icon(
+                            Icons.remove,
+                            size: 20.0,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20.0,
+                        ),
+                        Text(
+                          selectedQuantity.toString(),
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        SizedBox(
+                          width: 20.0,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedQuantity++;
+                            });
+                          },
+                          child: Icon(
+                            Icons.add,
+                            size: 20.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Divider(
+                  height: 0,
+                  color: AppColors.border,
+                ),
+                SizedBox(
+                  height: 8.5,
+                ),
+                Text(
+                  "Variants",
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                SizedBox(
+                  height: 14.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    VarriationCard(
+                      onTap: () {
+                        setState(() => selectedVariationId = 1);
+                      },
+                      name: "400 ML",
+                      isSelected: selectedVariationId == 1,
+                    ),
+                    SizedBox(
+                      width: 40.0,
+                    ),
+                    VarriationCard(
+                      onTap: () {
+                        setState(() => selectedVariationId = 2);
+                      },
+                      name: "750 ML",
+                      isSelected: selectedVariationId == 2,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 8.41,
+                ),
+                Divider(
+                  color: AppColors.border,
+                  height: 0,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  "Total Amount",
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppColors.grey2,
+                      ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  "₹ 30.00",
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Button(
+                  elevation: 7.0,
+                  onTap: () {},
+                  title: "Add to Card",
+                  frogroundColor: AppColors.black,
+                  backgroundColor: AppColors.primary,
+                  fullWidth: true,
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Eats"),
@@ -325,99 +588,105 @@ class ProductDetailsScreen extends StatelessWidget {
                 );
               },
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0, left: 25, right: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Sold by",
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
+            InkWell(
+              onTap: () {
+                context.pushNamed(MerchantInfoScreen.route);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: 12.0, left: 25, right: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Sold by",
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                    Divider(
+                      color: AppColors.border,
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width: 45,
+                          height: 45,
+                          decoration: BoxDecoration(
+                            color: blackColor,
+                            shape: BoxShape.circle,
+                          ),
                         ),
-                  ),
-                  Divider(
-                    color: AppColors.border,
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          color: blackColor,
-                          shape: BoxShape.circle,
+                        SizedBox(
+                          width: 20.0,
                         ),
-                      ),
-                      SizedBox(
-                        width: 20.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  "750 ML ",
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                                Image.asset(
-                                  "assets/icons/box_done.png",
-                                  width: 12,
-                                  height: 11.31,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Text(
-                              "Official Store ",
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Text(
-                              "+ Follow ",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "750 ML ",
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  Image.asset(
+                                    "assets/icons/box_done.png",
+                                    width: 12,
+                                    height: 11.31,
+                                  ),
+                                ],
                               ),
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Icon(
-                              Icons.keyboard_arrow_right,
-                            )
-                          ],
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Text(
+                                "Official Store ",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Divider(
-                    color: AppColors.border,
-                    height: 0,
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                ],
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        Container(
+                          child: Row(
+                            children: [
+                              Text(
+                                "+ Follow ",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_right,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Divider(
+                      color: AppColors.border,
+                      height: 0,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -492,7 +761,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: RatingBar.builder(
                                 initialRating: 5,
                                 minRating: 5,
-                                itemSize: 20,
+                                itemSize: 15,
                                 maxRating: 5,
                                 itemBuilder: (context, index) {
                                   return Icon(
@@ -505,11 +774,22 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             Expanded(
                               child: LinearProgressIndicator(
+                                minHeight: 3,
                                 backgroundColor: AppColors.grey,
                                 color: AppColors.yellow,
                                 value: 70,
                               ),
-                            )
+                            ),
+                            SizedBox(
+                              width: 4.0,
+                            ),
+                            Text(
+                              "70",
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -521,7 +801,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: RatingBar.builder(
                                 initialRating: 4,
                                 minRating: 5,
-                                itemSize: 20,
+                                itemSize: 15,
                                 maxRating: 5,
                                 itemBuilder: (context, index) {
                                   return Icon(
@@ -537,6 +817,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                 backgroundColor: AppColors.grey,
                                 color: AppColors.yellow,
                                 value: 70,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4.0,
+                            ),
+                            Text(
+                              "70",
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
                               ),
                             )
                           ],
@@ -550,7 +840,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: RatingBar.builder(
                                 initialRating: 3,
                                 minRating: 5,
-                                itemSize: 20,
+                                itemSize: 15,
                                 maxRating: 5,
                                 itemBuilder: (context, index) {
                                   return Icon(
@@ -566,6 +856,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                 backgroundColor: AppColors.grey,
                                 color: AppColors.yellow,
                                 value: 70,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4.0,
+                            ),
+                            Text(
+                              "50",
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
                               ),
                             )
                           ],
@@ -579,7 +879,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: RatingBar.builder(
                                 initialRating: 2,
                                 minRating: 5,
-                                itemSize: 20,
+                                itemSize: 15,
                                 maxRating: 5,
                                 itemBuilder: (context, index) {
                                   return Icon(
@@ -595,6 +895,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                 backgroundColor: AppColors.grey,
                                 color: AppColors.yellow,
                                 value: 70,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 4.0,
+                            ),
+                            Text(
+                              "30",
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
                               ),
                             )
                           ],
@@ -608,7 +918,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               child: RatingBar.builder(
                                 initialRating: 1,
                                 minRating: 5,
-                                itemSize: 20,
+                                itemSize: 15,
                                 maxRating: 5,
                                 itemBuilder: (context, index) {
                                   return Icon(
@@ -625,6 +935,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                 color: AppColors.yellow,
                                 value: 70,
                               ),
+                            ),
+                            SizedBox(
+                              width: 4.0,
+                            ),
+                            Text(
+                              "30",
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                              ),
                             )
                           ],
                         ),
@@ -633,7 +953,82 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(
+              height: 18.0,
+            ),
+            ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 3,
+              separatorBuilder: (context, index) {
+                return SizedBox(
+                  height: 20.0,
+                );
+              },
+              itemBuilder: (context, index) {
+                return CommentCard();
+              },
+            ),
+            SizedBox(
+              height: 22,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: BorderButton(
+                fullWidth: true,
+                onTap: () {
+                  context.pushNamed(RatingAndComments.route);
+                },
+                text: "See All Comments",
+              ),
+            ),
+            SizedBox(
+              height: 31,
+            ),
+            Container(
+              color: AppColors.grey,
+              width: double.infinity,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 25, vertical: 10.0),
+              child: Column(
+                children: [
+                  Text(
+                    "Recommended",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontSize: 16.0),
+                  ),
+                  SizedBox(
+                    height: 11,
+                  ),
+                  Text(
+                    "Get 10% - 20% OFF on Drinks",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(color: AppColors.green, fontSize: 20.0),
+                  ),
+                  SizedBox(
+                    height: 12.0,
+                  ),
+                  StaggeredGrid.count(
+                    crossAxisCount: 2,
+                    children: [
+                      RecommendedProductCard(
+                        onTap: () {},
+                      ),
+                      RecommendedProductCard(
+                        onTap: () {},
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -656,7 +1051,9 @@ class ProductDetailsScreen extends StatelessWidget {
                 backgroundColor: AppColors.primary,
                 frogroundColor: blackColor,
                 fullWidth: true,
-                onTap: () {},
+                onTap: () {
+                  _showCustomizeBottomSheet(context);
+                },
                 title: "Buy Now",
               ),
             ),
@@ -673,7 +1070,9 @@ class ProductDetailsScreen extends StatelessWidget {
                 backgroundColor: blackColor,
                 frogroundColor: AppColors.primary,
                 fullWidth: true,
-                onTap: () {},
+                onTap: () {
+                  _showSortingBottomSheet(context);
+                },
                 title: "Add to Cart",
               ),
             ),

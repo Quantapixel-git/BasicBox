@@ -4,13 +4,15 @@ class RouteName {
   static final String news = "news";
   static final String events = "events";
   static final String onboard = "/onboard";
-  static final String login = "/auth/login";
+  static final String login = "/login";
   static final String verification = "verification";
   static final String updateProfile = "updateProfile";
-  static final String regoster = "/auth/regoster";
-  static final String resetPassword = "/auth/resetPassword";
+  static final String regoster = "/regoster";
+  static final String resetPassword = "/resetPassword";
   static final String product = "products";
   static final String productDetails = "details";
+  static final String merchantInfo = "merchantInfo";
+  static final String ratingAndComments = "ratingAndComments";
 }
 
 class NavigateTo {
@@ -28,4 +30,7 @@ class NavigateTo {
   static final String products = "/${RouteName.product}";
   static final String productDetails =
       "/${RouteName.product}/${RouteName.productDetails}";
+
+  static final String merchantInfo =
+      "/${RouteName.productDetails}${RouteName.merchantInfo}";
 }

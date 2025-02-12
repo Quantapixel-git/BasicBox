@@ -12,6 +12,8 @@ class Button extends StatelessWidget {
   final bool fullWidth;
   final TextStyle? textStyle;
   final double elevation;
+  final EdgeInsetsGeometry? padding;
+  final double? borderRadius;
 
   const Button({
     super.key,
@@ -25,6 +27,8 @@ class Button extends StatelessWidget {
     this.fullWidth = false,
     this.textStyle,
     this.elevation = 0,
+    this.padding,
+    this.borderRadius,
   });
 
   @override
@@ -33,6 +37,11 @@ class Button extends StatelessWidget {
       width: fullWidth ? double.infinity : null,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 10.0),
+          ),
+          padding:
+              padding ?? EdgeInsets.symmetric(horizontal: 12.5, vertical: 15),
           elevation: elevation,
           textStyle: textStyle,
           backgroundColor: backgroundColor,
