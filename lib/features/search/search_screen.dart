@@ -16,6 +16,8 @@ class SearchScreen extends StatelessWidget {
       "T- shirt",
     ];
 
+    final searchData = ['apple', "banana", 'mango', "oranges"];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -34,16 +36,35 @@ class SearchScreen extends StatelessWidget {
               width: 7.0,
             ),
             Expanded(
-              child: SearchBar(
-                hintStyle: WidgetStatePropertyAll(
+              child: SearchAnchor.bar(
+                barOverlayColor: WidgetStatePropertyAll(whiteColor),
+                viewBackgroundColor: whiteColor,
+                isFullScreen: true,
+                suggestionsBuilder: (context, controller) {
+                  if (controller.value.text.isEmpty) {
+                    return [];
+                  }
+                  final searchValue = controller.value;
+                  final results = searchData
+                      .where((data) => data.contains(searchValue.text))
+                      .toList();
+
+                  return results.map((value) => ListTile(
+                        onTap: () {
+                          controller.closeView(value);
+                        },
+                        title: Text(value),
+                      ));
+                },
+                barHintStyle: WidgetStatePropertyAll(
                   TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: AppColors.grey1,
                   ),
                 ),
-                hintText: "Search 'Eat's ",
-                trailing: [
+                barHintText: "Search 'Eat's ",
+                barTrailing: [
                   IconButton(
                     onPressed: () {},
                     icon: Icon(
@@ -53,13 +74,13 @@ class SearchScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-                elevation: WidgetStatePropertyAll(0),
-                shape: WidgetStatePropertyAll(
+                barElevation: WidgetStatePropertyAll(0),
+                barShape: WidgetStatePropertyAll(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100.0),
                   ),
                 ),
-                backgroundColor: WidgetStatePropertyAll(whiteColor),
+                barBackgroundColor: WidgetStatePropertyAll(whiteColor),
               ),
             ),
             SizedBox(

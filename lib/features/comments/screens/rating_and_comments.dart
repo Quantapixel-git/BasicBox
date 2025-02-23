@@ -379,7 +379,7 @@ class RatingAndComments extends StatelessWidget {
               separatorBuilder: (context, index) {
                 return Divider(
                   color: AppColors.border,
-                  height: 0,
+                  height: 30,
                 );
               },
               itemBuilder: (context, index) {

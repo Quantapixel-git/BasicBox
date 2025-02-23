@@ -309,6 +309,85 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Positioned(
+                    top: 25,
+                    left: 25,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.trending_up,
+                              color: AppColors.green,
+                              size: 30,
+                            ),
+                            SizedBox(
+                              width: 4.0,
+                            ),
+                            Text(
+                              "#2",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "Trending in Drinks",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 25,
+                    right: 25,
+                    child: Icon(
+                      Icons.share,
+                      size: 30,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 25,
+                    right: 25,
+                    child: Column(
+                      children: [
+                        Text(
+                          "Starts from",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          " ₹20",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          "with coupon",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -446,7 +525,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         width: 66,
                         decoration: BoxDecoration(
                           color: AppColors.primary,
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(12.0),
+                            topRight: Radius.circular(12.0),
+                            bottomLeft: Radius.circular(12.0),
+                          ),
                           image: DecorationImage(
                             image: AssetImage(
                               "assets/images/fruits.png",
@@ -1071,7 +1154,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 frogroundColor: AppColors.primary,
                 fullWidth: true,
                 onTap: () {
-                  _showSortingBottomSheet(context);
+                  _showAddToCartBottomSheet(context);
                 },
                 title: "Add to Cart",
               ),

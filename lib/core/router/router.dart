@@ -1,3 +1,4 @@
+import 'package:ecom2/core/splash_screen.dart';
 import 'package:ecom2/features/auth/screens/login_screen.dart';
 import 'package:ecom2/features/auth/screens/register_screen.dart';
 import 'package:ecom2/features/auth/screens/update_profile_page.dart';
@@ -10,6 +11,7 @@ import 'package:ecom2/features/news/screens/news_screen.dart';
 import 'package:ecom2/features/onboarding/screens/onboard_screen.dart';
 import 'package:ecom2/features/products/screens/product_details_screen.dart';
 import 'package:ecom2/features/products/screens/product_screen.dart';
+import 'package:ecom2/features/profile/screens/profile_screen.dart';
 import 'package:ecom2/features/search/search_screen.dart';
 import 'package:ecom2/screens/bottom_nav_layout.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class CustomRoutes {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   static final router = GoRouter(
-    initialLocation: "/",
+    initialLocation: "/${SplashScreen.route}",
     navigatorKey: navigatorKey,
     routes: [
       GoRoute(
@@ -91,6 +93,16 @@ class CustomRoutes {
         path: "/${AddCommentScreen.route}",
         name: AddCommentScreen.route,
         builder: (context, state) => const AddCommentScreen(),
+      ),
+      GoRoute(
+        path: "/${ProfileScreen.route}",
+        name: ProfileScreen.route,
+        builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: "/${SplashScreen.route}",
+        name: SplashScreen.route,
+        builder: (context, state) => const SplashScreen(),
       ),
     ],
   );

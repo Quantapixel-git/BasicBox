@@ -107,7 +107,7 @@ class UpdateProfilePage extends StatelessWidget {
               Button(
                 disabledBackgroundColor: AppColors.grey1,
                 onTap: () {
-                  context.pushNamed("/");
+                  context.goNamed("/");
                 },
                 title: "Continue",
                 fullWidth: true,
